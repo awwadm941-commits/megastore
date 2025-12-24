@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="product-page-title">تفاصيل المنتج | Mega Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-wrap{max-width:1200px;margin:20px auto;padding:0 20px}
+    .product-layout{display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start}
+    .cardx{background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:var(--shadow-sm);overflow:hidden}
+    .img-box{background:#f9fafb;display:flex;align-items:center;justify-content:center;padding:20px}
+    .img-box img{width:100%;max-width:360px;height:auto;object-fit:contain}
+    .info{padding:18px}
+    .title{font-size:20px;font-weight:900;margin:0 0 8px}
+    .meta{color:#6b7280;font-size:13px;margin-bottom:10px}
+    .price-row{display:flex;align-items:baseline;gap:10px;margin:12px 0 14px}
+    .price{font-size:22px;font-weight:900;color:#0b3b7a}
+    .old{color:#9ca3af;text-decoration:line-through;font-weight:700}
+    .desc{color:#374151;line-height:1.9;margin:0 0 14px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-primary{background:#0056b3;color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .btn-ghost{background:#fff;color:#0056b3;border:1px solid #cfe3ff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .reviews{margin-top:18px}
+    .reviews-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+    .stars{display:flex;gap:3px;align-items:center}
+    .stars i{font-size:14px}
+    .avg{font-weight:900}
+    .count{color:#6b7280;font-size:13px}
+    .review-item{border-top:1px solid #eef2f7;padding:12px 0}
+    .review-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .review-name{font-weight:900}
+    .review-date{color:#9ca3af;font-size:12px}
+    .review-text{margin:8px 0 0;color:#374151;line-height:1.8}
+    .form{margin-top:14px;border-top:1px solid #eef2f7;padding-top:14px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .inp, .sel, .ta{width:100%;border:1px solid #e5e7eb;border-radius:10px;padding:10px 12px;font-family:'Cairo',sans-serif}
+    .sel{max-width:220px}
+    .ta{min-height:100px;resize:vertical}
+    @media (max-width: 980px){
+      .product-layout{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top-banner">
+    <span id="top-banner-text" data-i18n="banner">شحن مجاني للطلبات فوق 200 جنيه | إرجاع مجاني سهل | ضمان أصلي 100%</span>
+  </div>
+
+  <div class="main-bar">
+    <a href="index.html" class="logo" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" width="40" alt="Logo">
+      <div style="line-height:1;">MEGA<span>STORE</span></div>
+    </a>
+
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="ما الذي تبحث عنه؟">
+    </div>
+
+    <div class="nav-tools">
+      <div class="tool-item" onclick="toggleLanguage()">
+        <i class="fa-solid fa-globe"></i>
+        <span class="tool-text">Ar/En</span>
+      </div>
+
+      <div class="tool-item" id="login-btn">
+        <i class="fa-regular fa-user"></i>
+        <div>
+          <span id="nav-welcome-txt"></span>
+          <span id="nav-login-txt"></span>
+        </div>
+      </div>
+
+      <div class="tool-item" onclick="window.location.href='contact.html'">
+        <i class="fa-regular fa-envelope"></i>
+        <span class="tool-text" id="nav-contact-txt" data-i18n="navContact">تواصل معنا</span>
+      </div>
+
+      <div class="tool-item" onclick="window.location.href='return.html'">
+        <i class="fa-solid fa-rotate-left"></i>
+        <span class="tool-text" id="nav-returns-txt" data-i18n="returns">طلبات الارجاع</span>
+      </div>
+
+      <div class="tool-item" onclick="window.location.href='cart.html'">
+        <div style="position:relative;">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-Count" id="cart-badge">0</span>
+        </div>
+        <span class="tool-text" id="nav-cart-txt">السلة</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <div id="product-error" style="display:none;background:#fff;border:1px solid #fee2e2;border-radius:12px;padding:16px;color:#991b1b;font-weight:800;"></div>
+
+  <div class="product-layout" id="product-layout" style="display:none;">
+    <div class="cardx">
+      <div class="img-box">
+        <img id="p-img" alt="" />
+      </div>
+    </div>
+
+    <div class="cardx">
+      <div class="info">
+        <h1 class="title" id="p-title"></h1>
+        <div class="meta" id="p-meta"></div>
+
+        <div class="price-row">
+          <div class="price" id="p-price"></div>
+          <div class="old" id="p-old" style="display:none;"></div>
+        </div>
+
+        <p class="desc" id="p-desc"></p>
+
+        <div class="btns">
+          <button class="btn-primary" id="btn-add" type="button" data-i18n="addToCart">إضافة إلى عربة التسوق</button>
+          <button class="btn-ghost" type="button" data-i18n="basketView" onclick="window.location.href='cart.html'">عرض السلة</button>
+        </div>
+
+        <div class="reviews" id="reviews">
+          <div class="reviews-head">
+            <div>
+              <div class="avg" id="avg-txt"></div>
+              <div class="count" id="count-txt"></div>
+            </div>
+            <div class="stars" id="avg-stars"></div>
+          </div>
+
+          <div id="reviews-list"></div>
+
+          <div class="form">
+            <div class="row" style="margin-bottom:10px;">
+              <select class="sel" id="review-rating">
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+            </div>
+            <textarea class="ta" id="review-text" placeholder="اكتب تعليقك هنا..."></textarea>
+            <div class="btns" style="margin-top:10px;">
+              <button class="btn-primary" id="btn-review" type="button">إضافة تعليق</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" style="display:none; position:fixed; bottom:20px; left:20px; background:#111827; color:#fff; padding:10px 14px; border-radius:10px; font-weight:800; z-index:9999;" data-i18n="addedToast">تمت الإضافة للعربة</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حسابي | Mega Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .profile-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 30px;
+    }
+
+    .p-sidebar {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      height: fit-content;
+    }
+
+    .p-user-head {
+      padding: 20px;
+      text-align: center;
+      background: #f0f7ff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .p-user-img {
+      width: 80px;
+      height: 80px;
+      background: #ddd;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: #555;
+    }
+
+    .p-links a {
+      display: block;
+      padding: 15px 20px;
+      color: #333;
+      border-bottom: 1px solid #f9f9f9;
+      transition: 0.2s;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .p-links a:hover,
+    .p-links a.active {
+      background: #fffbe6;
+      color: var(--brand-primary);
+    }
+
+    .p-links a i {
+      width: 25px;
+      color: #aaa;
+    }
+
+    .p-content {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid #eee;
+    }
+
+    .order-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .order-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #f5f5f5;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+
+    .order-status {
+      display: inline-block;
+      padding: 5px 12px;
+      text-align: center;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <header style="background:white; border-bottom:1px solid #eee; padding:15px 0;">
+    <div class="main-bar"
+      style="margin:0 auto; max-width:1200px; display:flex; justify-content:space-between; align-items:center; padding:0 20px;">
+      <a href="index.html" class="logo" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" width="30" alt="Logo">
+        <div style="line-height:1; font-size:20px; font-weight:900; color:#1f2937;">MEGA<span
+            style="color:#0056b3;">STORE</span></div>
+      </a>
+      <div id="pageTitle" style="font-weight:700;">حسابي</div>
+    </div>
+  </header>
+
+  <div class="profile-container">
+    <div class="p-sidebar">
+      <div class="p-user-head">
+        <div class="p-user-img"><i class="fa-solid fa-user"></i></div>
+        <h3 id="profileName" style="margin:0; font-size:16px;"></h3>
+        <span id="profileEmail" style="font-size:12px; color:#666;"></span>
+      </div>
+      <div class="p-links">
+        <a href="#" class="active" id="lnOrders"><i class="fa-solid fa-box"></i> طلباتي</a>
+        <a href="#" id="lnFav"><i class="fa-solid fa-heart"></i> المفضلة</a>
+        <a href="#" id="lnAddr"><i class="fa-solid fa-location-dot"></i> العناوين</a>
+        <a href="#" id="lnSettings"><i class="fa-solid fa-gear"></i> الإعدادات</a>
+        <a href="index.html" onclick="logout()" style="color:red;" id="lnLogout"><i
+            class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</a>
+      </div>
+    </div>
+
+    <div class="p-content">
+      <h2 id="ordersTitle" style="margin-top:0; margin-bottom:30px;">تاريخ الطلبات</h2>
+
+      <div class="order-card">
+        <div class="order-head">
+          <div>
+            <div style="font-weight:700;">طلب #908821</div>
+            <div style="font-size:12px; color:#888;">20 ديسمبر 2024</div>
+          </div>
+          <span class="order-status">تم التوصيل</span>
+        </div>
+        <div style="display:flex; gap:15px; align-items:center;">
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=100"
+            style="width:60px; height:60px; object-fit:contain; border:1px solid #eee; border-radius:4px;">
+          <div>
+            <div style="font-weight:700; font-size:14px;">Apple iPhone 14 Pro</div>
+            <div style="font-size:13px; color:#555;">الكمية: 1</div>
+          </div>
+          <div style="margin-right:auto; font-weight:800; color:#0056b3;">45,000 ج.م</div>
+        </div>
+      </div>
+
+      <div class="order-card">
+        <div class="order-head">
+          <div>
+            <div style="font-weight:700;">طلب #802213</div>
+            <div style="font-size:12px; color:#888;">05 نوفمبر 2024</div>
+          </div>
+          <span class="order-status" style="background:#f3f4f6; color:#555;">تم الإسترجاع</span>
+        </div>
+        <div style="display:flex; gap:15px; align-items:center;">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=100"
+            style="width:60px; height:60px; object-fit:contain; border:1px solid #eee; border-radius:4px;">
+          <div>
+            <div style="font-weight:700; font-size:14px;">Nike Air Max</div>
+            <div style="font-size:13px; color:#555;">الكمية: 1</div>
+          </div>
+          <div style="margin-right:auto; font-weight:800; color:#0056b3;">3,200 ج.م</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem('megaUser');
+      localStorage.removeItem('megaRemember');
+      window.location.href = 'login.html';
+    }
+
+    (function () {
+      const lang = localStorage.getItem('megaStoreLang') || 'ar';
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      const rawUser = localStorage.getItem('megaUser');
+      let user = null;
+      try { user = rawUser ? JSON.parse(rawUser) : null; } catch (e) { user = null; }
+
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const nameEl = document.getElementById('profileName');
+      const emailEl = document.getElementById('profileEmail');
+
+      const name = (user && user.name) ? String(user.name) : (lang === 'ar' ? 'حسابي' : 'My Account');
+      const email = (user && user.email) ? String(user.email) : '';
+
+      if (nameEl) nameEl.textContent = name;
+      if (emailEl) emailEl.textContent = email;
+
+      if (lang === 'en') {
+        const pageTitle = document.getElementById('pageTitle');
+        const lnOrders = document.getElementById('lnOrders');
+        const lnFav = document.getElementById('lnFav');
+        const lnAddr = document.getElementById('lnAddr');
+        const lnSettings = document.getElementById('lnSettings');
+        const lnLogout = document.getElementById('lnLogout');
+        const ordersTitle = document.getElementById('ordersTitle');
+
+        if (pageTitle) pageTitle.textContent = 'My Account';
+        if (lnOrders) lnOrders.innerHTML = '<i class="fa-solid fa-box"></i> My Orders';
+        if (lnFav) lnFav.innerHTML = '<i class="fa-solid fa-heart"></i> Favorites';
+        if (lnAddr) lnAddr.innerHTML = '<i class="fa-solid fa-location-dot"></i> Addresses';
+        if (lnSettings) lnSettings.innerHTML = '<i class="fa-solid fa-gear"></i> Settings';
+        if (lnLogout) lnLogout.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Logout';
+        if (ordersTitle) ordersTitle.textContent = 'Order History';
+      }
+    })();
+  </script>
+</body>
+
+</html>

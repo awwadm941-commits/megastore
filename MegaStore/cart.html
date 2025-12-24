@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة التسوق | Mega Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .cart-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .c-item {
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .c-img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .c-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .c-details {
+            flex: 1;
+        }
+
+        .c-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #404553;
+        }
+
+        .c-meta {
+            font-size: 13px;
+            color: #7e859b;
+            margin-bottom: 10px;
+        }
+
+        .c-price {
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .c-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #d32f2f;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .c-actions span:hover {
+            text-decoration: underline;
+        }
+
+        .s-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .s-total {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .btn-checkout {
+            background: #0066cc;
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-checkout:hover {
+            background: #004c99;
+        }
+
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+        .qty{display:inline-flex;align-items:center;gap:10px;padding:6px 10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
+        .qty-btn{width:32px;height:32px;border:0;border-radius:8px;background:#2563eb;color:#fff;font-weight:900;cursor:pointer}
+        .qty-num{min-width:24px;text-align:center;font-weight:800}
+        .remove-btn{border:0;border-radius:10px;padding:8px 12px;background:#ef4444;color:#fff;cursor:pointer;font-weight:800}
+
+    </style>
+</head>
+
+<body>
+    <header style="padding: 15px 20px; border-bottom:1px solid #eee; background:white;">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <a href="index.html" class="logo" style="font-size:20px;">MEGA<span style="color:#0066cc;">STORE</span></a>
+            <div style="font-weight:700;">سلة التسوق</div>
+        </div>
+    </header>
+
+    <div class="cart-container">
+        <div class="cart-items" id="cart-list">
+            <div style="text-align:center; padding:40px;">جاري تحميل السلة...</div>
+        </div>
+
+        <div class="cart-summary">
+            <h3 style="margin-bottom:20px;">ملخص الطلبية</h3>
+            <div class="s-row">
+                <span>المجموع الفرعي</span>
+                <span id="subtotal">0.00 جنيه</span>
+            </div>
+            <div class="s-row">
+                <span>الشحن</span>
+                <span style="color:#38ae04;">مجاني</span>
+            </div>
+            <div class="s-row s-total">
+                <span>الإجمالي</span>
+                <span id="total">0.00 جنيه</span>
+            </div>
+            <button class="btn-checkout" onclick="window.location.href='checkout.html'">إتمام الشراء</button>
+            <button
+                style="width:100%; margin-top:10px; padding:10px; background:white; border:1px solid #ccc; border-radius:4px; font-weight:700; cursor:pointer;"
+                onclick="window.location.href='index.html'">العودة للتسوق</button>
+        </div>
+    </div>
+
+    <script>
+  const CART_KEY = 'megaStoreCart';
+
+  function getCart() {
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  }
+
+  function setCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function formatEGP(n) {
+    const num = Number(n) || 0;
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' جنيه';
+  }
+
+  function updateQty(index, delta) {
+    const cart = getCart();
+    const item = cart[index];
+    if (!item) return;
+
+    const current = Number(item.qty) || 1;
+    const next = current + delta;
+
+    if (next <= 0) {
+      cart.splice(index, 1);
+    } else {
+      item.qty = next;
+    }
+    setCart(cart);
+    renderCart();
+  }
+
+  function removeItem(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    setCart(cart);
+    renderCart();
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const list = document.getElementById('cart-list');
+    let total = 0;
+
+    if (!Array.isArray(cart) || cart.length === 0) {
+      list.innerHTML = '<div style="text-align:center; padding:20px;">سلة التسوق فارغة</div>';
+      document.getElementById('subtotal').innerText = formatEGP(0);
+      document.getElementById('total').innerText = formatEGP(0);
+      return;
+    }
+
+    list.innerHTML = cart.map((item, index) => {
+      const qty = Number(item.qty) || 1;
+      const price = Number(item.price) || 0;
+      const line = price * qty;
+      total += line;
+
+      return `
+        <div class="c-item">
+          <div class="c-img">
+            <img src="${item.image || ''}" alt="${item.title || ''}">
+          </div>
+          <div class="c-info">
+            <div style="font-weight:800;font-size:16px;margin-bottom:4px;">${item.title || ''}</div>
+            ${item.brand ? `<div style="color:#6b7280;font-size:13px;margin-bottom:8px;">${item.brand}</div>` : ''}
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+              <div style="font-weight:800;">${formatEGP(price)}</div>
+
+              <div class="qty">
+                <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                <span class="qty-num">${qty}</span>
+                <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+              </div>
+
+              <div style="color:#111827;font-weight:700;">الإجمالي: ${formatEGP(line)}</div>
+
+              <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('subtotal').innerText = formatEGP(total);
+    document.getElementById('total').innerText = formatEGP(total);
+  }
+
+  window.updateQty = updateQty;
+  window.removeItem = removeItem;
+
+  renderCart();
+</script>
+</body>
+
+</html>

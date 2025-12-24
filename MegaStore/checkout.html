@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الشراء | Mega Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+
+        .checkout-layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+        }
+
+        .checkout-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 15px;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: #0056b3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1f2937;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .p-option {
+            border: 2px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 700;
+            color: #4b5563;
+            transition: 0.3s;
+        }
+
+        .p-option:hover {
+            border-color: #0056b3;
+            background: #f0f7ff;
+        }
+
+        .p-option.active {
+            border-color: #0056b3;
+            background: #0056b3;
+            color: white;
+        }
+
+        .order-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            height: fit-content;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .s-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .s-total {
+            border-top: 1px solid #e5e7eb;
+            margin-top: 20px;
+            padding-top: 20px;
+            font-weight: 800;
+            font-size: 20px;
+            color: #1f2937;
+        }
+
+        .btn-pay {
+            background: #10b981;
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-pay:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 900px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header style="background:white; border-bottom:1px solid #eee; padding: 15px 0;">
+        <div class="main-bar"
+            style="margin:0 auto; max-width:1200px; display:flex; justify-content:space-between; align-items:center;">
+            <a href="index.html" class="logo" style="font-size:24px;">MEGA<span>STORE</span></a>
+            <div style="font-weight:700; color:#4b5563; font-size:14px;"> <i class="fa-solid fa-lock"></i> دفع آمن 100%
+            </div>
+        </div>
+    </header>
+
+    <div class="checkout-layout">
+        <div class="checkout-main">
+            
+            <div class="step-box">
+                <div class="step-header">
+                    <div class="step-num">1</div>
+                    <div class="step-title">عنوان التوصيل</div>
+                </div>
+                <form id="address-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الاسم الأول</label>
+                            <input type="text" value="أحمد" required>
+                        </div>
+                        <div class="form-group">
+                            <label>اسم العائلة</label>
+                            <input type="text" value="محمد" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>رقم الهاتف</label>
+                        <input type="tel" value="01012345678" required>
+                    </div>
+                    <div class="form-group">
+                        <label>العنوان بالتفصيل</label>
+                        <input type="text" placeholder="اسم الشارع، رقم العمارة، الشقة" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>المدينة</label>
+                            <select>
+                                <option>القاهرة</option>
+                                <option>الجيزة</option>
+                                <option>الإسكندرية</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>المنطقة</label>
+                            <input type="text" value="المعادي">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div class="step-box">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <div class="step-title">طريقة الدفع</div>
+                </div>
+                <div class="payment-options">
+                    <div class="p-option active" onclick="selectPay(this)">
+                        <i class="fa-solid fa-wallet" style="font-size:24px; display:block; margin-bottom:10px;"></i>
+                        الدفع عند الاستلام
+                    </div>
+                    <div class="p-option" onclick="selectPay(this)">
+                        <i class="fa-brands fa-cc-visa" style="font-size:24px; display:block; margin-bottom:10px;"></i>
+                        بطاقة ائتمان
+                    </div>
+                </div>
+                <p style="margin-top:20px; font-size:13px; color:#6b7280; line-height:1.6;">
+                    عند اختيار الدفع عند الاستلام، ستقوم بدفع المبلغ كاملاً للمندوب عند وصول الشحنة. يرجى تجهيز المبلغ
+                    المحدد لتسهيل العملية.
+                </p>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <div class="summary-title">ملخص الطلب</div>
+            <div class="s-row">
+                <span>عدد المنتجات</span>
+                <span id="sum-count">2 منتج</span>
+            </div>
+            <div class="s-row">
+                <span>المجموع الفرعي</span>
+                <span>45,200 ج.م</span>
+            </div>
+            <div class="s-row">
+                <span>الشحن</span>
+                <span style="color:#10b981; font-weight:700;">مجاني</span>
+            </div>
+            <div class="s-row s-total">
+                <span>الإجمالي</span>
+                <span style="color:#0056b3;">45,200 ج.م</span>
+            </div>
+            <button class="btn-pay" onclick="finishOrder()">تأكيد الطلب الآن</button>
+            <div style="text-align:center; margin-top:15px; font-size:11px; color:#9ca3af;">
+                بالنقر على تأكيد الطلب، أنت توافق على شروط الاستخدام والبيع.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectPay(el) {
+            document.querySelectorAll('.p-option').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function finishOrder() {
+
+            const btn = document.querySelector('.btn-pay');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري المعالجة...';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                alert('تم استلام طلبك بنجاح! رقم الطلب #908821');
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

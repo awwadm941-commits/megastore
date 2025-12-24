@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mega Store</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    body{margin:0;font-family:'Cairo',sans-serif;overflow:hidden}
+    .welcome{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      background:linear-gradient(135deg,#0056b3 0%,#002d61 100%);
+      padding:24px;
+    }
+    h1{
+      margin:0;
+      font-weight:900;
+      font-size:clamp(42px,7vw,84px);
+      line-height:1;
+    }
+    h1 span{color:#f5a623}
+    p{
+      margin:14px 0 0;
+      font-size:clamp(16px,2.4vw,24px);
+      opacity:.9;
+    }
+    .loader{
+      margin:28px auto 0;
+      width:64px;height:64px;
+      border:6px solid rgba(255,255,255,.2);
+      border-top:6px solid #f5a623;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    .small{
+      margin-top:14px;
+      font-size:clamp(12px,1.8vw,14px);
+      opacity:.75;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+<div class="welcome">
+  <div>
+    <h1>MEGA<span>STORE</span></h1>
+    <p id="tagline"></p>
+    <div class="loader"></div>
+    <div class="small" id="loadingText"></div>
+  </div>
+</div>
+
+<script>
+  const lang = localStorage.getItem('megaStoreLang') || 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = (lang === 'ar') ? 'rtl' : 'ltr';
+
+  const t = {
+    ar: {
+      tagline: 'وجهتك الأولى للتسوق الإلكتروني',
+      loading: 'جاري التحويل إلى المتجر...'
+    },
+    en: {
+      tagline: 'Your #1 online shopping destination',
+      loading: 'Redirecting to the store...'
+    }
+  };
+
+  document.getElementById('tagline').textContent = t[lang].tagline;
+  document.getElementById('loadingText').textContent = t[lang].loading;
+
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 1800);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+MEGA STORE - USED IMAGES
+========================
+
+This project uses high-quality images from Unsplash (unsplash.com) for a professional look.
+The images are directly linked in the 'js/data.js' file.
+
+Categories & Sources:
+
+1. Mobiles
+   - https://images.unsplash.com/photo-1511707171634-5f897ff02aa9
+   - https://images.unsplash.com/photo-1610945415295-d9bbf067e59c
+   - ... and others similar.
+
+2. Laptops
+   - https://images.unsplash.com/photo-1496181133206-80ce9b88a853
+   - https://images.unsplash.com/photo-1593642632823-8fa7906ddb86
+
+3. Screens (TVs)
+   - https://images.unsplash.com/photo-1593359677879-a4bb92f829d1
+   - https://images.unsplash.com/photo-1593784991095-a205069470b6
+
+4. Fridges
+   - https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5
+   - https://images.unsplash.com/photo-1584622050111-993a426fbf0a
+
+5. Fashion & Shoes
+   - https://images.unsplash.com/photo-1512436991641-6745cdb1723f
+   - https://images.unsplash.com/photo-1542291026-7eec264c27ff
+
+6. Electrical Appliances
+   - https://images.unsplash.com/photo-1626806775807-4fac546dc2e8
+
+7. Login Page
+   - https://images.unsplash.com/photo-1555529733-0e670560f7e1
+
+The application dynamically generates ~400 products using these base images to simulate a large inventory.
+All images are free to use under Unsplash License.

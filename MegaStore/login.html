@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Mega Store</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body{margin:0; font-family:'Cairo',sans-serif; background:#f3f4f6; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:18px;}
+    .auth-card{width:100%; max-width:460px; background:#fff; border-radius:18px; padding:26px; box-shadow:0 12px 35px rgba(0,0,0,.10); border:1px solid #eee;}
+    .brand{font-weight:900; font-size:24px; text-align:center; margin-bottom:6px;}
+    .brand span{color:#0056b3;}
+    .muted{color:#6b7280; font-size:13px; text-align:center; margin:0 0 18px;}
+    .tabs{display:flex; gap:10px; background:#f3f4f6; padding:6px; border-radius:999px; margin-bottom:16px;}
+    .tab{flex:1; border:0; background:transparent; padding:10px; border-radius:999px; font-weight:900; cursor:pointer;}
+    .tab.active{background:#fff; box-shadow:0 6px 16px rgba(0,0,0,.06);}
+    .field{margin-bottom:12px;}
+    label{display:block; font-size:13px; font-weight:800; margin-bottom:6px;}
+    input{width:100%; padding:13px 12px; border-radius:12px; border:1px solid #ddd; font-family:inherit; font-size:14px;}
+    .row{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px;}
+    .chk{display:flex; align-items:center; gap:8px; font-size:13px; color:#444; font-weight:700;}
+    .chk input{width:auto;}
+    .btn{width:100%; padding:13px 14px; border-radius:999px; border:0; font-weight:900; cursor:pointer; font-size:14px;}
+    .btn-primary{background:#0ea5e9; color:#fff;}
+    .btn-primary:hover{background:#0284c7;}
+    .btn-ghost{background:#f3f4f6; color:#111; border:1px solid #e5e7eb;}
+    .btn-ghost:hover{background:#eaeef3;}
+    .divider{display:flex; align-items:center; gap:10px; margin:14px 0;}
+    .divider span{flex:1; height:1px; background:#eee;}
+    .divider p{margin:0; font-size:12px; color:#777; font-weight:800;}
+    .err{display:none; margin-top:10px; background:#fff5f5; border:1px solid #feb2b2; color:#c53030; padding:10px 12px; border-radius:12px; font-size:13px; font-weight:800;}
+    .link{display:block; text-align:center; margin-top:14px; color:#555; text-decoration:none; font-size:13px; font-weight:800;}
+    .link:hover{text-decoration:underline;}
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="brand">MEGA<span>STORE</span></div>
+    <p class="muted" id="subtitle">سجّل دخولك أو أنشئ حسابًا جديدًا</p>
+
+    <div class="tabs">
+      <button class="tab active" id="tabSignIn" type="button" onclick="showTab('signin')">تسجيل الدخول</button>
+      <button class="tab" id="tabSignUp" type="button" onclick="showTab('signup')">إنشاء حساب</button>
+    </div>
+
+    <form id="formSignIn" onsubmit="signIn(event)">
+      <div class="field">
+        <label id="lblEmailIn">البريد الإلكتروني</label>
+        <input id="emailIn" type="email" placeholder="example@email.com" required>
+      </div>
+      <div class="field">
+        <label id="lblPassIn">كلمة المرور</label>
+        <input id="passIn" type="password" placeholder="••••••••" required>
+      </div>
+
+      <div class="row">
+        <label class="chk">
+          <input id="remember" type="checkbox">
+          <span id="rememberTxt">تذكرني (دخول تلقائي)</span>
+        </label>
+
+        <button class="btn btn-ghost" type="button" onclick="guestSignIn()" id="guestBtn">
+          دخول سريع (Guest)
+        </button>
+      </div>
+
+      <div class="divider"><span></span><p id="orTxt">أو</p><span></span></div>
+
+      <button class="btn btn-primary" type="submit" id="btnSignIn">تسجيل الدخول</button>
+
+      <div class="err" id="errBox"></div>
+
+      <a class="link" href="index.html" id="backHome">العودة للصفحة الرئيسية</a>
+    </form>
+
+    <form id="formSignUp" onsubmit="signUp(event)" style="display:none;">
+      <div class="field">
+        <label id="lblNameUp">الاسم</label>
+        <input id="nameUp" type="text" placeholder="اكتب اسمك" required>
+      </div>
+      <div class="field">
+        <label id="lblEmailUp">البريد الإلكتروني</label>
+        <input id="emailUp" type="email" placeholder="example@email.com" required>
+      </div>
+      <div class="field">
+        <label id="lblPassUp">كلمة المرور</label>
+        <input id="passUp" type="password" placeholder="••••••••" required>
+      </div>
+
+      <button class="btn btn-primary" type="submit" id="btnSignUp">إنشاء حساب</button>
+
+      <div class="err" id="errBox2"></div>
+
+      <a class="link" href="index.html" id="backHome2">العودة للصفحة الرئيسية</a>
+    </form>
+  </div>
+
+<script>
+  const lang = localStorage.getItem('megaStoreLang') || 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = (lang === 'ar') ? 'rtl' : 'ltr';
+
+  const T = {
+    ar: {
+      subtitle:'سجّل دخولك أو أنشئ حسابًا جديدًا',
+      signIn:'تسجيل الدخول', signUp:'إنشاء حساب',
+      email:'البريد الإلكتروني', pass:'كلمة المرور', name:'الاسم',
+      remember:'تذكرني (دخول تلقائي)',
+      guest:'دخول سريع (Guest)',
+      or:'أو',
+      btnIn:'تسجيل الدخول',
+      btnUp:'إنشاء حساب',
+      back:'العودة للصفحة الرئيسية',
+      errInvalid:'بيانات الدخول غير صحيحة.',
+      errExists:'هذا البريد مسجل بالفعل. جرّب تسجيل الدخول.',
+      errWeak:'كلمة المرور قصيرة جدًا (على الأقل 4 حروف).',
+      okCreated:'تم إنشاء الحساب! تم تسجيل دخولك.',
+    },
+    en: {
+      subtitle:'Sign in or create a new account',
+      signIn:'Sign in', signUp:'Sign up',
+      email:'Email', pass:'Password', name:'Name',
+      remember:'Remember me (auto sign-in)',
+      guest:'Quick sign-in (Guest)',
+      or:'OR',
+      btnIn:'Sign in',
+      btnUp:'Create account',
+      back:'Back to Home',
+      errInvalid:'Invalid login details.',
+      errExists:'Email already exists. Please sign in.',
+      errWeak:'Password too short (min 4 chars).',
+      okCreated:'Account created! You are signed in.',
+    }
+  };
+  const t = T[lang] || T.ar;
+
+
+  document.getElementById('subtitle').textContent = t.subtitle;
+  document.getElementById('tabSignIn').textContent = t.signIn;
+  document.getElementById('tabSignUp').textContent = t.signUp;
+  document.getElementById('lblEmailIn').textContent = t.email;
+  document.getElementById('lblPassIn').textContent = t.pass;
+  document.getElementById('rememberTxt').textContent = t.remember;
+  document.getElementById('guestBtn').textContent = t.guest;
+  document.getElementById('orTxt').textContent = t.or;
+  document.getElementById('btnSignIn').textContent = t.btnIn;
+  document.getElementById('lblNameUp').textContent = t.name;
+  document.getElementById('lblEmailUp').textContent = t.email;
+  document.getElementById('lblPassUp').textContent = t.pass;
+  document.getElementById('btnSignUp').textContent = t.btnUp;
+  document.getElementById('backHome').textContent = t.back;
+  document.getElementById('backHome2').textContent = t.back;
+
+  if (localStorage.getItem('megaRemember') === '1' && localStorage.getItem('megaUser')) {
+    window.location.href = 'profile.html';
+  }
+
+  function showError(id, msg){
+    const el = document.getElementById(id);
+    el.style.display = 'block';
+    el.textContent = msg;
+  }
+  function clearError(id){
+    const el = document.getElementById(id);
+    el.style.display = 'none';
+    el.textContent = '';
+  }
+
+  function getUsers(){
+    try { return JSON.parse(localStorage.getItem('megaUsers') || '[]'); }
+    catch { return []; }
+  }
+  function setUsers(users){
+    localStorage.setItem('megaUsers', JSON.stringify(users));
+  }
+
+  function showTab(which){
+    clearError('errBox'); clearError('errBox2');
+    const signIn = document.getElementById('formSignIn');
+    const signUp = document.getElementById('formSignUp');
+    const b1 = document.getElementById('tabSignIn');
+    const b2 = document.getElementById('tabSignUp');
+
+    if(which === 'signup'){
+      signIn.style.display = 'none';
+      signUp.style.display = 'block';
+      b1.classList.remove('active');
+      b2.classList.add('active');
+    } else {
+      signUp.style.display = 'none';
+      signIn.style.display = 'block';
+      b2.classList.remove('active');
+      b1.classList.add('active');
+    }
+  }
+  window.showTab = showTab;
+
+  function signIn(e){
+  e.preventDefault();
+  clearError('errBox'); 
+
+  const email = (document.getElementById('emailIn').value || '').trim().toLowerCase();
+  const pass  = (document.getElementById('passIn').value || '').trim();
+  const remember = document.getElementById('remember').checked;
+
+  const users = getUsers();
+  const emailExists = users.find(u => u.email === email);
+  if(!emailExists){
+    showTab('signup');
+    document.getElementById('emailUp').value = email;
+    document.getElementById('passUp').value = pass; 
+    showError('errBox2', lang === 'ar'
+      ? 'الحساب غير موجود. أنشئ حساب جديد بنفس البيانات 👇'
+      : 'Account not found. Create a new one below 👇'
+    );
+    return;
+  }
+
+  if(emailExists.pass !== pass){
+    showError('errBox', lang === 'ar'
+      ? 'كلمة المرور غير صحيحة. جرّب مرة أخرى.'
+      : 'Incorrect password. Please try again.'
+    );
+    return;
+  }
+  localStorage.setItem('megaUser', JSON.stringify({ name: emailExists.name, email: emailExists.email }));
+  localStorage.setItem('megaRemember', remember ? '1' : '0');
+  window.location.href = 'profile.html';
+}
+window.signIn = signIn;
+
+  window.signIn = signIn;
+
+  function signUp(e){
+    e.preventDefault();
+    clearError('errBox2');
+
+    const name  = (document.getElementById('nameUp').value || '').trim();
+    const email = (document.getElementById('emailUp').value || '').trim().toLowerCase();
+    const pass  = (document.getElementById('passUp').value || '').trim();
+
+    if(pass.length < 4){
+      showError('errBox2', t.errWeak);
+      return;
+    }
+
+    const users = getUsers();
+    if(users.some(u => u.email === email)){
+      showError('errBox2', t.errExists);
+      return;
+    }
+
+    users.push({ name, email, pass });
+    setUsers(users);
+    localStorage.setItem('megaUser', JSON.stringify({ name, email }));
+    localStorage.setItem('megaRemember', '1');
+    window.location.href = 'profile.html';
+  }
+  window.signUp = signUp;
+
+  function guestSignIn(){
+    localStorage.setItem('megaUser', JSON.stringify({ name: 'Guest', email: 'guest@megastore.local' }));
+    localStorage.setItem('megaRemember', '0');
+    window.location.href = 'profile.html';
+  }
+  window.guestSignIn = guestSignIn;
+</script>
+
+</body>
+</html>

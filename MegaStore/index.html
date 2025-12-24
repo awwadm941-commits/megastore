@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Store | ميجا ستور</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="icon" href="data:,">
+    <style>
+        
+        .home-layout {
+            max-width: 1440px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+        }
+
+        .sidebar-menu {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            height: fit-content;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brand-black);
+            border-bottom: 1px solid #f3f4f6;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu a:hover {
+            background: #f0f7ff;
+            color: var(--brand-primary);
+            padding-right: 20px;
+        }
+
+        .sidebar-menu a i {
+            width: 20px;
+            text-align: center;
+            color: var(--brand-gray);
+        }
+
+        .hero-area {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 900px) {
+            .home-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-menu {
+                display: none;
+            }
+
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <header>
+        <div class="top-banner">
+            <span id="top-banner-text" data-i18n="banner">شحن مجاني للطلبات فوق 200 جنيه | إرجاع مجاني سهل | ضمان أصلي 100%</span>
+        </div>
+
+        <div class="main-bar">
+            <a href="welcome.html" class="logo"
+                style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" width="40" alt="Logo">
+                <div style="line-height:1;">MEGA<span>STORE</span></div>
+            </a>
+
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="ما الذي تبحث عنه؟">
+            </div>
+
+            
+            <div class="nav-tools">
+                <div class="tool-item" onclick="toggleLanguage()">
+                    <i class="fa-solid fa-globe"></i>
+                    <span class="tool-text">Ar/En</span>
+                </div>
+
+                <div class="tool-item" id="login-btn">
+                    <i class="fa-regular fa-user"></i>
+                    <div>
+                        <span id="nav-welcome-txt"></span>
+                        <span id="nav-login-txt"></span>
+                    </div>
+                </div>
+
+
+                <div class="tool-item" onclick="window.location.href='return.html'">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span class="tool-text" id="nav-returns-txt" data-i18n="returns">طلبات الارجاع</span>
+                </div>
+                <div class="tool-item" onclick="window.location.href='contact.html'">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span class="tool-text" id="nav-contact-txt" data-i18n="navContact">تواصل معنا</span>
+                </div>
+
+
+                <div class="tool-item" onclick="window.location.href='cart.html'">
+                    <div style="position:relative;">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-Count" id="cart-badge">0</span>
+                    </div>
+                    <span class="tool-text" id="nav-cart-txt">السلة</span>
+                </div>
+            </div>
+            <nav class="topnav">
+  <div class="topnav-inner">
+    <button class="topnav-toggle" type="button" onclick="toggleTopMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+</nav>
+
+        </div>
+
+        
+        <div class="menu-stripe">
+            <ul>
+                <li><a href="#" id="m-home">الرئيسية</a></li>
+                <li><a href="#mobiles" id="m-mobiles">موبايلات</a></li>
+                <li><a href="#laptops" id="m-laptops">لابتوب</a></li>
+                <li><a href="#screens" id="m-screens">شاشات</a></li>
+                <li><a href="#fridges" id="m-fridges">ثلاجات</a></li>
+                <li><a href="#electrical" id="m-electrical">أجهزة منزلية</a></li>
+                <li><a href="#fashion" id="m-fashion">ملابس</a></li>
+                <li><a href="#shoes" id="m-shoes">أحذية</a></li>
+                <li><a href="#deals" class="mega-deal" id="m-deals">عروض</a></li>
+            </ul>
+        </div>
+    </header>
+
+    
+    <div class="home-layout">
+        
+        <div class="sidebar-menu">
+            <a href="#mobiles"><i class="fa-solid fa-mobile-screen"></i> <span data-i18n="sidebarMobilesTablet">موبايلات وتابلت</span></a>
+            <a href="#laptops"><i class="fa-solid fa-laptop"></i> <span data-i18n="sidebarComputers">كمبيوتر ولابتوب</span></a>
+            <a href="#screens"><i class="fa-solid fa-tv"></i> <span data-i18n="sidebarScreens">شاشات وتلفزيون</span></a>
+            <a href="#fridges"><i class="fa-solid fa-snowflake"></i> <span data-i18n="sidebarFridges">ثلاجات وديب فريزر</span></a>
+            <a href="#electrical"><i class="fa-solid fa-plug"></i> <span data-i18n="sidebarAppliances">أجهزة منزلية</span></a>
+            <a href="#fashion"><i class="fa-solid fa-shirt"></i> <span data-i18n="sidebarFashion">أزياء وملابس</span></a>
+            <a href="#shoes"><i class="fa-solid fa-shoe-prints"></i> <span data-i18n="sidebarShoes">أحذية رياضية</span></a>
+            <a href="#watches"><i class="fa-solid fa-clock"></i> <span data-i18n="sidebarWatchesGlasses">ساعات</span></a>
+            <a href="#deals" style="color:red"><i class="fa-solid fa-fire"></i> <span data-i18n="sidebarTodayDeals">عروض اليوم</span></a>
+        </div>
+
+        
+        <div class="hero-area">
+            <img src="https://images.pexels.com/photos/1778412/pexels-photo-1778412.jpeg"
+                class="hero-img" alt="Banner">
+        </div>
+    </div>
+
+    
+    <div class="section-container" id="deals">
+        <div class="section-head">
+            <h3 class="section-title" id="h-deals">عروض ميجا</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="deals-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="mobiles">
+        <div class="section-head">
+            <h3 class="section-title" id="h-mobiles">أحدث الموبايلات</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="mobiles-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="laptops">
+        <div class="section-head">
+            <h3 class="section-title" id="h-laptops">لابتوب وكمبيوتر</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="laptops-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="screens">
+        <div class="section-head">
+            <h3 class="section-title" id="h-screens">شاشات وتلفزيون</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="screens-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="fridges">
+        <div class="section-head">
+            <h3 class="section-title" id="h-fridges">ثلاجات وديب فريزر</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="fridges-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="electrical">
+        <div class="section-head">
+            <h3 class="section-title" id="h-electrical">أجهزة منزلية</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="electrical-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="fashion">
+        <div class="section-head">
+            <h3 class="section-title" id="h-fashion">ملابس وأزياء</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="fashion-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="shoes">
+        <div class="section-head">
+            <h3 class="section-title" id="h-shoes">أحذية</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="shoes-grid"></div>
+    </div>
+
+    
+    <div class="section-container" id="watches">
+        <div class="section-head">
+            <h3 class="section-title" id="h-watches">ساعات</h3>
+            <a href="#" class="view-all" data-i18n="viewAll">VIEW ALL</a>
+        </div>
+        <div class="grid" id="watches-grid"></div>
+    </div>
+
+    
+    <footer style="background:#f3f4f6; padding-top:60px; border-top:1px solid #e5e7eb; margin-top:100px;">
+        <div class="footer-inner"
+            style="max-width:1440px; margin:0 auto; padding:0 20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:40px; margin-bottom:40px;">
+            <div class="footer-col">
+                <h4 style="font-weight:800; margin-bottom:20px;"><span data-i18n="footerHelp">نحن هنا لمساعدتك</span></h4>
+                <ul style="color:#555; line-height:2;">
+                    <li><span data-i18n="footerHelpCenter">مركز المساعدة</span></li>
+                    <li><span data-i18n="footerPayments">طرق الدفع</span></li>
+                    <li><span data-i18n="footerShipping">الشحن والتوصيل</span></li>
+                    <li><span data-i18n="footerReturnsPolicy">شروط الاسترجاع</span></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 style="font-weight:800; margin-bottom:20px;"><span data-i18n="footerElectronicsTitle">الإلكترونيات</span></h4>
+                <ul style="color:#555; line-height:2;">
+                    <li><span data-i18n="footerNewMobiles">موبايلات حديثة</span></li>
+                    <li><span data-i18n="footerLaptopsComputers">لابتوب وكمبيوتر</span></li>
+                    <li><span data-i18n="footerSmartTVs">تلفزيونات ذكية</span></li>
+                    <li><span data-i18n="footerCameras">كاميرات</span></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 style="font-weight:800; margin-bottom:20px;"><span data-i18n="footerShopTitle">تسوق معنا</span></h4>
+                <ul style="color:#555; line-height:2;">
+                    <li><span data-i18n="footerAllProducts">كل المنتجات</span></li>
+                    <li><span data-i18n="footerTodayDeals2">عروض اليوم</span></li>
+                    <li><span data-i18n="footerEndSeason">تصفية نهاية الموسم</span></li>
+                    <li><span data-i18n="footerBestSellers">الأكثر مبيعاً</span></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 style="font-weight:800; margin-bottom:20px;"><span data-i18n="footerFollow">تابعنا على</span></h4>
+                <div style="display:flex; gap:15px; margin-bottom:20px;">
+                    <i class="fa-brands fa-facebook" style="font-size:24px; color:#3b5998; cursor:pointer;"></i>
+                    <i class="fa-brands fa-twitter" style="font-size:24px; color:#1da1f2; cursor:pointer;"></i>
+                    <i class="fa-brands fa-instagram" style="font-size:24px; color:#c13584; cursor:pointer;"></i>
+                    <i class="fa-brands fa-linkedin" style="font-size:24px; color:#0e76a8; cursor:pointer;"></i>
+                </div>
+                <h4 style="font-weight:800; margin-bottom:10px;"><span data-i18n="footerDownloadApp">حمل التطبيق</span></h4>
+                <div style="display:flex; gap:10px;">
+                    <img src="https://z.nooncdn.com/s/app/com/common/images/logos/app-store.svg" alt="App Store"
+                        style="height:35px; cursor:pointer;">
+                    <img src="https://z.nooncdn.com/s/app/com/common/images/logos/google-play.svg" alt="Google Play"
+                        style="height:35px; cursor:pointer;">
+                </div>
+            </div>
+        </div>
+
+        <div style="background:#fff; padding:20px 0; border-top:1px solid #ddd;">
+            <div
+                style="max-width:1440px; margin:0 auto; padding:0 20px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:20px;">
+                <div style="font-size:13px; color:#777;"><span data-i18n="copyright">© 2025 Mega Store. جميع الحقوق محفوظة.</span></div>
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <img src="https://z.nooncdn.com/s/app/com/noon/images/mastercard-color.svg" alt="Mastercard"
+                        style="height:50px;">
+                    <img src="https://z.nooncdn.com/s/app/com/noon/images/visa-color.svg" alt="Visa"
+                        style="height:25px;">
+                    <img src="data:image/png;base64,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" alt="Paypal" style="height:50px;">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+  <script>
+function doLogin(e){
+    e.preventDefault();
+    const nameInput = document.getElementById('login-name');
+    const name = nameInput ? nameInput.value.trim() : 'User';
+    const user = { name };
+    localStorage.setItem('megaUser', JSON.stringify(user));
+     window.location.href = 'profile.html';
+    }
+    </script>
+
+    
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
